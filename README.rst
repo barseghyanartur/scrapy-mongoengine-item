@@ -28,10 +28,10 @@ attribute. Start using it right away by importing it from this package::
 Installation
 ============
 
-Starting with ``v1.1`` both ``Python 2.7`` and ``Python 3.4/3.5`` are
+Starting with ``v1.1`` both ``Python 2.7`` and ``Python 3.5/3.6`` are
 supported. For ``Python 3`` you need ``Scrapy v1.1`` or above.
 
-Latest tested Django version is ``Django 1.9``.
+Latest tested MongoEngine version is ``MongoEngine 0.17.0``.
 
 Install from ``PyPI`` using::
 
@@ -41,49 +41,49 @@ Install from ``PyPI`` using::
 Introduction
 ============
 
-``DjangoItem`` is a class of item that gets its fields definition from a
-Django model, you simply create a ``DjangoItem`` and specify what Django
-model it relates to.
+``MongoEngineItem`` is a class of item that gets its fields definition from a
+MongoEngine document, you simply create a ``MongoEngineItem`` and specify what
+MongoEngine document it relates to.
 
-Besides of getting the model fields defined on your item, ``DjangoItem``
-provides a method to create and populate a Django model instance with the item
-data.
+Besides of getting the document fields defined on your item, ``MongoEngineItem``
+provides a method to create and populate a MongoEngine document instance with
+the item data.
 
 Usage
 =====
 
-``DjangoItem`` works much like ModelForms in Django, you create a subclass
-and define its ``django_model`` attribute to be a valid Django model. With this
-you will get an item with a field for each Django model field.
+``MongoEngineItem`` works as follows: you create a subclass and define its
+``mongoengine_document`` attribute to be a valid MongoEngine document. With
+this you will get an item with a field for each MongoEngine document field.
 
-In addition, you can define fields that aren't present in the model and even
+In addition, you can define fields that aren't present in the document and even
 override fields that are present in the model defining them in the item.
 
 Let's see some examples:
 
 Creating a Django model for the examples::
 
-    from django.db import models
+    from mongoengine import fields, document
 
-    class Person(models.Model):
-        name = models.CharField(max_length=255)
-        age = models.IntegerField()
+    class Person(document.Document):
+        name = fields.CharField(max_length=255)
+        age = fields.IntegerField()
 
-Defining a basic ``DjangoItem``::
+Defining a basic ``MongoEngineItem``::
 
-    from scrapy_mongoengine_item import DjangoItem
+    from scrapy_mongoengine_item import MongoEngineItem
 
-    class PersonItem(DjangoItem):
-        django_model = Person
+    class PersonItem(MongoEngineItem):
+        mongoengine_document = Person
 
-``DjangoItem`` works just like Scrapy items::
+``MongoEngineItem`` works just like Scrapy items::
 
     >>> p = PersonItem()
     >>> p['name'] = 'John'
     >>> p['age'] = '22'
 
-To obtain the Django model from the item, we call the extra method
-``DjangoItem.save()`` of the ``DjangoItem``::
+To obtain the MongoEngine document from the item, we call the extra method
+``MongoEngineItem.save()`` of the ``MongoEngineItem``::
 
     >>> person = p.save()
     >>> person.name
@@ -93,9 +93,10 @@ To obtain the Django model from the item, we call the extra method
     >>> person.id
     1
 
-The model is already saved when we call ``DjangoItem.save()``, we
+The document is already saved when we call ``MongoEngineItem.save()``, we
 can prevent this by calling it with ``commit=False``. We can use
-``commit=False`` in ``DjangoItem.save()`` method to obtain an unsaved model::
+``commit=False`` in ``MongoEngineItem.save()`` method to obtain an unsaved
+document::
 
     >>> person = p.save(commit=False)
     >>> person.name
@@ -108,10 +109,10 @@ can prevent this by calling it with ``commit=False``. We can use
 As said before, we can add other fields to the item::
 
     import scrapy
-    from scrapy_mongoengine_item import DjangoItem
+    from scrapy_mongoengine_item import MongoEngineItem
 
-    class PersonItem(DjangoItem):
-        django_model = Person
+    class PersonItem(MongoEngineItem):
+        mongoengine_document = Person
         sex = scrapy.Field()
 
 ::
@@ -121,76 +122,15 @@ As said before, we can add other fields to the item::
    >>> p['age'] = '22'
    >>> p['sex'] = 'M'
 
-And we can override the fields of the model with your own::
+And we can override the fields of the document with your own::
 
-    class PersonItem(DjangoItem):
+    class PersonItem(MongoEngineItem):
         django_model = Person
         name = scrapy.Field(default='No Name')
 
 This is useful to provide properties to the field, like a default or any other
 property that your project uses. Those additional fields won't be taken into
 account when doing a ``DjangoItem.save()``.
-
-Caveats
-=======
-
-``DjangoItem`` is a rather convenient way to integrate Scrapy projects with Django
-models, but bear in mind that Django ORM **may not scale well** if you scrape a lot
-of items (ie. millions) with Scrapy. This is because a relational backend is
-**often not a good choice for a write intensive applications** (such as a web
-crawler), specially if the database is highly normalized and with many indices.
-
-Setup
-=====
-
-To use the Django models outside the Django application you need to set up the
-``DJANGO_SETTINGS_MODULE`` environment variable and --in most cases-- modify
-the ``PYTHONPATH`` environment variable to be able to import the settings
-module.
-
-There are many ways to do this depending on your use case and preferences.
-Below is detailed one of the simplest ways to do it.
-
-Suppose your Django project is named ``mysite``, is located in the path
-``/home/projects/mysite`` and you have created an app ``myapp`` with the model
-``Person``. That means your directory structure is something like this::
-
-    /home/projects/mysite
-    ├── manage.py
-    ├── myapp
-    │   ├── __init__.py
-    │   ├── models.py
-    │   ├── tests.py
-    │   └── views.py
-    └── mysite
-        ├── __init__.py
-        ├── settings.py
-        ├── urls.py
-        └── wsgi.py
-
-Then you need to add ``/home/projects/mysite`` to the ``PYTHONPATH``
-environment variable and set up the environment variable
-``DJANGO_SETTINGS_MODULE`` to ``mysite.settings``. That can be done in your
-Scrapy's settings file by adding the lines below::
-
-  import sys
-  sys.path.append('/home/projects/mysite')
-
-  import os
-  os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
-
-Notice that we modify the ``sys.path`` variable instead the ``PYTHONPATH``
-environment variable as we are already within the python runtime. If everything
-is right, you should be able to start the ``scrapy shell`` command and import
-the model ``Person`` (i.e. ``from myapp.models import Person``).
-
-Starting with ``Django 1.8`` you also have to explicitly set up ``Django`` if using
-it outside a ``manage.py`` context
-(see `Django Docs <https://docs.djangoproject.com/en/1.8/intro/tutorial01/#playing-with-the-api>`_)::
-
-  import django
-  django.setup()
-
 
 Development
 ===========
@@ -201,24 +141,3 @@ Test suite from the ``tests`` directory can be run using ``tox`` by running::
 
 ...using the configuration in ``tox.ini``. The ``Python`` interpreters
 used have to be installed locally on the system.
-
-
-Changelog
-=========
-
-v1.1.1 (2016-05-04)
--------------------
-
-* Distribute as universal wheel
-* Fix README's markup
-
-v1.1 (2016-05-04)
------------------
-
-* ``Python 3.4/3.5`` support
-* Making tests work with ``Django 1.9`` again
-
-v1.0 (2015-04-29)
------------------
-
-* Initial version
