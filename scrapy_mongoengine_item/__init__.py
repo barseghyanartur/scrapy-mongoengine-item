@@ -24,9 +24,9 @@ class MongoEngineItemMeta(ItemMeta):
             cls._document_fields = []
             cls._document_meta = cls.mongoengine_document._meta
             for document_field in cls.mongoengine_document._fields:
-                if document_field.name != cls._document_meta['id_field']:
-                    cls.fields[document_field.name] = Field()
-                cls._model_fields.append(document_field.name)
+                if document_field != cls._document_meta['id_field']:
+                    cls.fields[document_field] = Field()
+                cls._model_fields.append(document_field)
         return cls
 
 

@@ -1,0 +1,4 @@
+-r core.txt
+-r debug.txt
+-r docs.txt
+-r code_style.txt

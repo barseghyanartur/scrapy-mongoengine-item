@@ -1,16 +1,17 @@
 import os
 import unittest
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.settings'
-import django
-django.setup()
+from mongoengine import connect
 
-from scrapy_mongoengineitem import DjangoItem, Field
-from tests.models import Person, IdentifiedPerson
+from scrapy import Field
+from scrapy_mongoengine_item import MongoEngineItem
+from tests.documents import Person, IdentifiedPerson
+
+connect()
 
 
-class BasePersonItem(DjangoItem):
-    django_model = Person
+class BasePersonItem(MongoEngineItem):
+    mongoengine_document = Person
 
 
 class NewFieldPersonItem(BasePersonItem):
@@ -21,11 +22,11 @@ class OverrideFieldPersonItem(BasePersonItem):
     age = Field()
 
 
-class IdentifiedPersonItem(DjangoItem):
-    django_model = IdentifiedPerson
+class IdentifiedPersonItem(MongoEngineItem):
+    mongoengine_document = IdentifiedPerson
 
 
-class DjangoItemTest(unittest.TestCase):
+class MongoEngineItemTest(unittest.TestCase):
 
     def assertSortedEqual(self, first, second, msg=None):
         return self.assertEqual(sorted(first), sorted(second), msg)
