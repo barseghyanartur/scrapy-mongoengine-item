@@ -56,11 +56,11 @@ class MongoEngineItemTest(unittest.TestCase):
         self.assertSortedEqual(i.fields.keys(), ['age', 'name'])
 
         i['name'] = 'John'
-        i['age'] = '22'
+        i['age'] = 22
         person = i.save(commit=False)
 
         self.assertEqual(person.name, 'John')
-        self.assertEqual(person.age, '22')
+        self.assertEqual(person.age, 22)
 
     def test_override_save(self):
         i = OverrideFieldPersonItem()
@@ -68,11 +68,11 @@ class MongoEngineItemTest(unittest.TestCase):
         i['name'] = 'John'
         # it is not obvious that "age" should be saved also, since it was
         # redefined in child class
-        i['age'] = '22'
+        i['age'] = 22
         person = i.save(commit=False)
 
         self.assertEqual(person.name, 'John')
-        self.assertEqual(person.age, '22')
+        self.assertEqual(person.age, 22)
 
     def test_validation(self):
         long_name = 'z' * 300
@@ -94,7 +94,7 @@ class MongoEngineItemTest(unittest.TestCase):
 
         i = i = OverrideFieldPersonItem()
         i['name'] = 'John'
-        i['age'] = '22'
+        i['age'] = 22
         self.assertTrue(i.is_valid())
 
     def test_default_field_values(self):

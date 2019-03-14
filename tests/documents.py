@@ -5,11 +5,11 @@ connect()
 
 
 class Person(document.Document):
-    name = fields.StringField(max_length=255, default='Robot')
-    age = fields.IntField()
+    name = fields.StringField(required=True, max_length=255, default='Robot')
+    age = fields.IntField(required=True)
 
 
 class IdentifiedPerson(document.Document):
-    identifier = fields.IntField(primary_key=True)
-    name = fields.StringField(max_length=255)
-    age = fields.IntField()
+    identifier = fields.IntField(required=True, primary_key=True)
+    name = fields.StringField(required=True, max_length=255)
+    age = fields.IntField(required=True)

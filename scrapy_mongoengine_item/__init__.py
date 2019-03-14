@@ -77,7 +77,7 @@ class MongoEngineItem(with_metaclass(MongoEngineItemMeta, Item)):
             document_args = dict(
                 (k, self.get(k))
                 for k in self._values
-                if k in self._model_fields
+                if k in self._document_fields
             )
             self._instance = self.mongoengine_document(**document_args)
         return self._instance
