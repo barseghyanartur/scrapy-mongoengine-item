@@ -173,3 +173,43 @@ The most easy way is to run it via Docker:
 
     docker pull mongo:latest
     docker run -p 27017:27017 mongo:latest
+
+Writing documentation
+---------------------
+Keep the following hierarchy.
+
+.. code-block:: text
+
+    =====
+    title
+    =====
+
+    header
+    ======
+
+    sub-header
+    ----------
+
+    sub-sub-header
+    ~~~~~~~~~~~~~~
+
+    sub-sub-sub-header
+    ^^^^^^^^^^^^^^^^^^
+
+    sub-sub-sub-sub-header
+    ++++++++++++++++++++++
+
+    sub-sub-sub-sub-sub-header
+    **************************
+
+License
+=======
+GPL 2.0/LGPL 2.1
+
+Support
+=======
+For any issues contact me at the e-mail given in the `Author`_ section.
+
+Author
+======
+Artur Barseghyan <artur.barseghyan@gmail.com>
