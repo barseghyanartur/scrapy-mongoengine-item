@@ -19,7 +19,7 @@ are used for versioning (schema follows below):
 ------
 2019-03-14
 
-- Beta release. All tests fixed.
+- Beta release.
 
 0.1.2
 ------

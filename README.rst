@@ -159,19 +159,22 @@ Development
 Testing
 -------
 
-Test suite from the ``tests`` directory can be run using ``tox`` by running:
+To run a tests in your working environment type:
 
 .. code-block:: sh
 
-  tox
+    ./runtests.py
 
-...using the configuration in ``tox.ini``. The ``Python`` interpreters
-used have to be installed locally on the system.
+To test with all supported Python versions type:
+
+.. code-block:: sh
+
+    tox
 
 Running MongoDB
 ---------------
 
-The most easy way is to run it via Docker:
+The easiest way is to run it via Docker:
 
 .. code-block:: sh
 
