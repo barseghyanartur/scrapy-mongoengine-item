@@ -64,7 +64,7 @@ class MongoEngineItem(with_metaclass(MongoEngineItemMeta, Item)):
         except ValidationError as err:
             self._errors = self._errors.update(copy.copy(err.errors))
 
-        # uniqueness is not checked, because it is faster to check it when
+        # Uniqueness is not checked, because it is faster to check it when
         # saving object to database. Just beware, that failed save()
         # raises IntegrityError instead of ValidationError.
 

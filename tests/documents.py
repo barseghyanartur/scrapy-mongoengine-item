@@ -1,7 +1,9 @@
-from mongoengine import connect
 from mongoengine import fields, document
 
-connect()
+__all__ = (
+    'IdentifiedPerson',
+    'Person',
+)
 
 
 class Person(document.Document):

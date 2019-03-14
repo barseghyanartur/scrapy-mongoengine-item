@@ -7,22 +7,30 @@ from scrapy import Field
 from scrapy_mongoengine_item import MongoEngineItem
 from tests.documents import Person, IdentifiedPerson
 
+__all__ = (
+    'MongoEngineItemTest',
+)
+
 connect()
 
 
 class BasePersonItem(MongoEngineItem):
+
     mongoengine_document = Person
 
 
 class NewFieldPersonItem(BasePersonItem):
+
     other = Field()
 
 
 class OverrideFieldPersonItem(BasePersonItem):
+
     age = Field()
 
 
 class IdentifiedPersonItem(MongoEngineItem):
+
     mongoengine_document = IdentifiedPerson
 
 
@@ -112,3 +120,7 @@ class MongoEngineItemTest(unittest.TestCase):
         i = BasePersonItem()
         person = i.save(commit=False)
         self.assertEqual(person.name, 'Robot')
+
+
+if __name__ == '__main__':
+    unittest.main()
