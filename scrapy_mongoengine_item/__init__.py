@@ -26,7 +26,7 @@ class MongoEngineItemMeta(ItemMeta):
             for document_field in cls.mongoengine_document._fields:
                 if document_field != cls._document_meta['id_field']:
                     cls.fields[document_field] = Field()
-                cls._model_fields.append(document_field)
+                cls._document_fields.append(document_field)
         return cls
 
 
