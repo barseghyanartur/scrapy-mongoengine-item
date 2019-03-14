@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='scrapy-mongoengine-item',
-    version='0.1.2',
+    version='0.1.3',
     url='https://github.com/barseghyanartur/scrapy-mongoitem',
     description='Scrapy extension to write scraped items using MongoEngine '
                 'documents',
@@ -16,7 +16,7 @@ setup(
     zip_safe=False,
     classifiers=[
         'Framework :: Scrapy',
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: Developers',
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",

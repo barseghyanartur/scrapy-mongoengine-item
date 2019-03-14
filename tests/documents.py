@@ -10,6 +10,7 @@ class Person(document.Document):
 
     name = fields.StringField(required=True, max_length=255, default='Robot')
     age = fields.IntField(required=True)
+    num_fingers = fields.IntField(required=False)
 
     def __str__(self):
         return self.name

@@ -47,15 +47,21 @@ class MongoEngineItemTest(unittest.TestCase):
 
     def test_base(self):
         i = BasePersonItem()
-        self.assertSortedEqual(i.fields.keys(), ['age', 'name'])
+        self.assertSortedEqual(
+            i.fields.keys(),
+            ['age', 'name', 'num_fingers']
+        )
 
     def test_new_fields(self):
         i = NewFieldPersonItem()
-        self.assertSortedEqual(i.fields.keys(), ['age', 'other', 'name'])
+        self.assertSortedEqual(
+            i.fields.keys(),
+            ['age', 'other', 'name', 'num_fingers']
+        )
 
     def test_override_field(self):
         i = OverrideFieldPersonItem()
-        self.assertSortedEqual(i.fields.keys(), ['age', 'name'])
+        self.assertSortedEqual(i.fields.keys(), ['age', 'name', 'num_fingers'])
 
     def test_custom_primary_key_field(self):
         """
@@ -63,11 +69,14 @@ class MongoEngineItemTest(unittest.TestCase):
         in the field list.
         """
         i = IdentifiedPersonItem()
-        self.assertSortedEqual(i.fields.keys(), ['age', 'identifier', 'name'])
+        self.assertSortedEqual(
+            i.fields.keys(),
+            ['age', 'identifier', 'name']
+        )
 
     def test_save(self):
         i = BasePersonItem()
-        self.assertSortedEqual(i.fields.keys(), ['age', 'name'])
+        self.assertSortedEqual(i.fields.keys(), ['age', 'name', 'num_fingers'])
 
         i['name'] = self.faker.name()
         i['age'] = self.faker.pyint()
@@ -75,10 +84,11 @@ class MongoEngineItemTest(unittest.TestCase):
 
         self.assertEqual(person.name, i['name'])
         self.assertEqual(person.age, i['age'])
+        self.assertEqual(person.num_fingers, None)
 
     def test_save_commit(self):
         i = BasePersonItem()
-        self.assertSortedEqual(i.fields.keys(), ['age', 'name'])
+        self.assertSortedEqual(i.fields.keys(), ['age', 'name', 'num_fingers'])
 
         i['name'] = self.faker.name()
         i['age'] = self.faker.pyint()
@@ -86,6 +96,7 @@ class MongoEngineItemTest(unittest.TestCase):
 
         self.assertEqual(person.name, i['name'])
         self.assertEqual(person.age, i['age'])
+        self.assertEqual(person.num_fingers, None)
 
     def test_override_save(self):
         i = OverrideFieldPersonItem()
@@ -98,19 +109,23 @@ class MongoEngineItemTest(unittest.TestCase):
 
         self.assertEqual(person.name, i['name'])
         self.assertEqual(person.age, i['age'])
+        self.assertEqual(person.num_fingers, None)
 
     def test_validation(self):
-        long_name = 'z' * 300
-        name = self.faker.name()
+        long_name = 'z' * 300  # Invalid name
         i = BasePersonItem(name=long_name)
         self.assertFalse(i.is_valid())
         self.assertEqual(set(i.errors), {'age', 'name'})
-        i = BasePersonItem(name=name)
-        self.assertTrue(i.is_valid())
-        self.assertEqual({}, i.errors)
 
-        # once the item is validated, it does not validate again
-        i['name'] = long_name
+        name = self.faker.name()  # Valid name
+        i = BasePersonItem(name=name)
+        self.assertFalse(i.is_valid())
+        self.assertEqual(set(i.errors), {'age'})
+
+        # Once the item is validated, it does not validate again
+        i = BasePersonItem()
+        i['name'] = name
+        i['age'] = 27
         self.assertTrue(i.is_valid())
 
     def test_override_validation(self):
@@ -118,7 +133,7 @@ class MongoEngineItemTest(unittest.TestCase):
         i['name'] = self.faker.name()
         self.assertFalse(i.is_valid())
 
-        i = i = OverrideFieldPersonItem()
+        i = OverrideFieldPersonItem()
         i['name'] = self.faker.name()
         i['age'] = self.faker.pyint()
         self.assertTrue(i.is_valid())

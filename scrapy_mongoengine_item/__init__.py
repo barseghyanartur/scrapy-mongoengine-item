@@ -9,6 +9,13 @@ __all__ = (
 )
 
 
+def has_custom_primary_key(fields):
+    for field in fields:
+        if field.primary_key:
+            return True
+    return False
+
+
 class MongoEngineItemMeta(ItemMeta):
 
     def __new__(mcs, class_name, bases, attrs):
@@ -23,8 +30,12 @@ class MongoEngineItemMeta(ItemMeta):
         if cls.mongoengine_document:
             cls._document_fields = []
             cls._document_meta = cls.mongoengine_document._meta
+            _has_custom_primary_key = has_custom_primary_key(
+                cls.mongoengine_document._fields.values()
+            )
             for document_field in cls.mongoengine_document._fields:
-                if document_field != cls._document_meta['id_field']:
+                if _has_custom_primary_key \
+                        or document_field != cls._document_meta['id_field']:
                     cls.fields[document_field] = Field()
                 cls._document_fields.append(document_field)
         return cls
@@ -57,12 +68,12 @@ class MongoEngineItem(with_metaclass(MongoEngineItemMeta, Item)):
         try:
             self.instance.validate()
         except ValidationError as err:
-            self._errors = self._errors.update(copy.copy(err.errors))
+            self._errors.update(copy.copy(err.errors))
 
         try:
             self.instance.clean()
         except ValidationError as err:
-            self._errors = self._errors.update(copy.copy(err.errors))
+            self._errors.update(copy.copy(err.errors))
 
         # Uniqueness is not checked, because it is faster to check it when
         # saving object to database. Just beware, that failed save()

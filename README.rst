@@ -71,6 +71,7 @@ Creating a MongoEngine document for the examples:
     from mongoengine import fields, document
 
     class Person(document.Document):
+
         name = fields.StringField(max_length=255)
         age = fields.IntField()
 
@@ -81,6 +82,7 @@ Defining a basic ``MongoEngineItem``:
     from scrapy_mongoengine_item import MongoEngineItem
 
     class PersonItem(MongoEngineItem):
+
         mongoengine_document = Person
 
 ``MongoEngineItem`` works just like Scrapy items:
@@ -127,6 +129,7 @@ As said before, we can add other fields to the item:
     from scrapy_mongoengine_item import MongoEngineItem
 
     class PersonItem(MongoEngineItem):
+
         mongoengine_document = Person
         sex = scrapy.Field()
 
@@ -142,6 +145,7 @@ And we can override the fields of the document with your own:
 .. code-block:: python
 
     class PersonItem(MongoEngineItem):
+
         mongoengine_document = Person
         name = scrapy.Field(default='No Name')
 
