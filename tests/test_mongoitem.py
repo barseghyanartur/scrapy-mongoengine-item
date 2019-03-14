@@ -62,6 +62,17 @@ class MongoEngineItemTest(unittest.TestCase):
         self.assertEqual(person.name, 'John')
         self.assertEqual(person.age, 22)
 
+    def test_save_commit(self):
+        i = BasePersonItem()
+        self.assertSortedEqual(i.fields.keys(), ['age', 'name'])
+
+        i['name'] = 'John'
+        i['age'] = 22
+        person = i.save()
+
+        self.assertEqual(person.name, 'John')
+        self.assertEqual(person.age, 22)
+
     def test_override_save(self):
         i = OverrideFieldPersonItem()
 
