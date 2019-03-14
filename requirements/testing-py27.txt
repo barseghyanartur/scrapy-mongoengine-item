@@ -1,0 +1,2 @@
+-r core-py27.txt
+-r test.txt
