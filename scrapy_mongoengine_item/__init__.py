@@ -30,7 +30,7 @@ class MongoEngineItemMeta(ItemMeta):
         return cls
 
 
-class MongoEngineItem(with_metaclass(MongoItemMeta, Item)):
+class MongoEngineItem(with_metaclass(MongoEngineItemMeta, Item)):
 
     mongoengine_document = None
 
