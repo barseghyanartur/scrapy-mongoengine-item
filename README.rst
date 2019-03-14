@@ -125,7 +125,7 @@ As said before, we can add other fields to the item::
 And we can override the fields of the document with your own::
 
     class PersonItem(MongoEngineItem):
-        django_model = Person
+        mongoengine_document = Person
         name = scrapy.Field(default='No Name')
 
 This is useful to provide properties to the field, like a default or any other
