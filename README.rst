@@ -130,7 +130,7 @@ And we can override the fields of the document with your own::
 
 This is useful to provide properties to the field, like a default or any other
 property that your project uses. Those additional fields won't be taken into
-account when doing a ``DjangoItem.save()``.
+account when doing a ``MongoEngineItem.save()``.
 
 Development
 ===========
