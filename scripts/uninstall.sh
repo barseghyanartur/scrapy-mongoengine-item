@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-pip uninstall django-elasticsearch-dsl-drf -y
+pip uninstall scrapy-mongoengine-item -y
 rm build -rf
 rm dist -rf
-rm -rf src/django_elasticsearch_dsl_drf.egg-info
-rm -rf src/django-elasticsearch-dsl-drf.egg-info
+rm -rf src/scrapy_mongoengine_item.egg-info
+rm -rf src/scrapy-mongoengine-item.egg-info
 rm builddocs.zip
 rm builddocs/ -rf

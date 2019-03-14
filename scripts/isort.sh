@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 reset
-isort -rc src/ --diff
+isort -rc scrapy_mongoengine_item/ --diff

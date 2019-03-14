@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 reset
-pylint src/django_elasticsearch_dsl_drf/
+pylint scrapy_mongoengine_item/
