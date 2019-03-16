@@ -25,6 +25,9 @@ var/
 .idea/
 .pytest_cache/
 .hg/
+/builddocs.zip
+/build/
+/builddocs/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
