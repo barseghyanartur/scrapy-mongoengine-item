@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='scrapy-mongoengine-item',
-    version='0.1.3',
+    version='0.1.4',
     url='https://github.com/barseghyanartur/scrapy-mongoitem',
     description='Scrapy extension to write scraped items using MongoEngine '
                 'documents',
