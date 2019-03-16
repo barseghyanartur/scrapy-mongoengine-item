@@ -27,6 +27,9 @@ from this package:
 
     from scrapy_mongoengine_item import MongoEngineItem
 
+Documentation is available on `Read the Docs
+<http://scrapy-mongoengine-item.readthedocs.io/>`_.
+
 Installation
 ============
 
