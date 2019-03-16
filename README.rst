@@ -30,7 +30,7 @@ from this package:
 Installation
 ============
 
-Starting with ``v1.1`` both ``Python 2.7`` and ``Python 3.5/3.6`` are
+Both ``Python 2.7`` and ``Python 3.5/3.6`` are
 supported. For ``Python 3`` you need ``Scrapy v1.1`` or above.
 
 Latest tested MongoEngine version is ``MongoEngine 0.17.0``.
