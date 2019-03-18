@@ -162,7 +162,7 @@ Development
 Testing
 -------
 
-To run a tests in your working environment type:
+To run tests in your working environment type:
 
 .. code-block:: sh
 
