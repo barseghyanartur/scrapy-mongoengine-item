@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.1.5
+------
+yyyy-mm-dd (not yet released).
+
+- Minor fixes in docs.
+- Added Python 3.7 to the test matrix.
 
 0.1.4
 ------
