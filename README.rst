@@ -10,9 +10,13 @@ scrapy-mongoengine-item
    :target: http://travis-ci.org/barseghyanartur/scrapy-mongoengine-item
    :alt: Build Status
 
-.. image:: https://img.shields.io/github/license/barseghyanartur/scrapy-mongoengine-item.svg
-   :target: https://github.com/barseghyanartur/scrapy-mongoengine-item/blob/master/LICENSE_GPL2.0.txt
-   :alt: License
+.. image:: https://img.shields.io/badge/License-GPL%20v2.0-blue.svg
+   :target: https://github.com/barseghyanartur/tld/blob/master/LICENSE_GPL2.0.txt
+   :alt: License GPL v2.0
+
+.. image:: https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg
+   :target: https://github.com/barseghyanartur/tld/blob/master/LICENSE_LGPL_2.1.txt
+   :alt: License LGPL v2.1
 
 ``scrapy-mongoengine-item`` is an extension that allows you to define `Scrapy items
 <http://doc.scrapy.org/en/latest/topics/items.html>`_ using existing

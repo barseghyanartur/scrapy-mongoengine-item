@@ -1,29 +1,57 @@
 language: python
+
+python:
+- 2.7
+- 3.5
+- 3.6
+
+env:
+- MONGODB=2.6 PYMONGO=3.x
+
 matrix:
+  # Finish the build as soon as one job fails
+  fast_finish: true
+
   include:
     - python: 2.7
-      env: TOXENV=py27
+      env: MONGODB=3.0 PYMONGO=3.5 TOXENV=py27
     - python: 3.5
-      env: TOXENV=py35
+      env: MONGODB=3.2 PYMONGO=3.x TOXENV=py35
     - python: 3.6
-      env: TOXENV=py36
+      env: MONGODB=3.0 PYMONGO=3.5 TOXENV=py36
+    - python: 3.6
+      env: MONGODB=3.2 PYMONGO=3.x TOXENV=py36
+    - python: 3.6
+      env: MONGODB=3.4 PYMONGO=3.x TOXENV=py36
+
+before_install:
+- bash .install_mongodb_on_travis.sh
+- sleep 15  # https://docs.travis-ci.com/user/database-setup/#MongoDB-does-not-immediately-accept-connections
+- mongo --eval 'db.version();'
+
 install:
-- pip install -U tox
-script: tox
-notifications:
-  irc:
-    use_notice: true
-    skip_join: true
-    channels:
-    - irc.freenode.org#scrapy
-deploy:
-  provider: pypi
-  distributions: sdist bdist_wheel
-  user: scrapy
-  password:
-    secure: some-key
-  on:
-    tags: true
-    all_branches: true
-    repo: barseghyanartur/scrapy-mongoengine-item
-    condition: $TOXENV == py27
+  - sudo apt-get install python-dev python3-dev libopenjpeg-dev zlib1g-dev libjpeg-turbo8-dev
+    libtiff4-dev libjpeg8-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev
+    python-tk
+  - travis_retry pip install --upgrade pip
+  - travis_retry pip install coveralls
+  - travis_retry pip install flake8 flake8-import-order
+  - travis_retry pip install tox>=1.9
+  - travis_retry pip install "virtualenv<14.0.0"  # virtualenv>=14.0.0 has dropped Python 3.2 support (and pypy3 is based on py32)
+  - travis_retry tox -e $(echo py$TRAVIS_PYTHON_VERSION-mg$PYMONGO | tr -d . | sed -e 's/pypypy/pypy/') -- -e test
+
+# Cache dependencies installed via pip
+cache: pip
+
+# Run flake8 for py27
+before_script:
+- if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then flake8 .; else echo "flake8 only runs on py27"; fi
+
+script:
+- tox -e $(echo py$TRAVIS_PYTHON_VERSION-mg$PYMONGO | tr -d . | sed -e 's/pypypy/pypy/') -- --with-coverage
+
+# For now only submit coveralls for Python v2.7. Python v3.x currently shows
+# 0% coverage. That's caused by 'use_2to3', which builds the py3-compatible
+# code in a separate dir and runs tests on that.
+after_success:
+- if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then coveralls --verbose; fi
