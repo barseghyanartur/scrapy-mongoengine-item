@@ -7,7 +7,7 @@ from mongoengine.errors import ValidationError
 from scrapy.item import Field, Item, ItemMeta
 
 __title__ = 'scrapy-mongoengine-item'
-__version__ = '0.1.4'
+__version__ = '0.1.5'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

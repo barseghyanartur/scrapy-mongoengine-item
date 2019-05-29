@@ -17,10 +17,10 @@ are used for versioning (schema follows below):
 
 0.1.5
 ------
-yyyy-mm-dd (not yet released).
+2019-05-29
 
 - Minor fixes in docs.
-- Added Python 3.7 to the test matrix.
+- Added travis.
 
 0.1.4
 ------

@@ -3,14 +3,14 @@ from setuptools import setup, find_packages
 
 setup(
     name='scrapy-mongoengine-item',
-    version='0.1.4',
+    version='0.1.5',
     url='https://github.com/barseghyanartur/scrapy-mongoitem',
     description='Scrapy extension to write scraped items using MongoEngine '
                 'documents',
     long_description=open('README.rst').read(),
     author='Artur Barseghyan',
     author_email='artur.barseghyan@gmail.com',
-    license='GPL 2.0/LGPL 2.1',
+    license='GPL-2.0-only OR LGPL-2.1-or-later',
     packages=find_packages(exclude=('tests', 'tests.*')),
     include_package_data=True,
     zip_safe=False,

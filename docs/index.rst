@@ -1,6 +1,7 @@
 =======================
 scrapy-mongoengine-item
 =======================
+Bringing ``Scrapy`` and ``MongoEngine`` together.
 
 .. image:: https://img.shields.io/pypi/v/scrapy-mongoengine-item.svg
    :target: https://pypi.python.org/pypi/scrapy-mongoengine-item
@@ -10,47 +11,46 @@ scrapy-mongoengine-item
    :target: http://travis-ci.org/barseghyanartur/scrapy-mongoengine-item
    :alt: Build Status
 
-.. image:: https://img.shields.io/badge/License-GPL%20v2.0-blue.svg
-   :target: https://github.com/barseghyanartur/tld/blob/master/LICENSE_GPL2.0.txt
-   :alt: License GPL v2.0
-
-.. image:: https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg
-   :target: https://github.com/barseghyanartur/tld/blob/master/LICENSE_LGPL_2.1.txt
-   :alt: License LGPL v2.1
+.. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
+   :target: https://github.com/barseghyanartur/scrapy-mongoengine-item/#License
+   :alt: GPL-2.0-only OR LGPL-2.1-or-later
 
 ``scrapy-mongoengine-item`` is an extension that allows you to define `Scrapy items
 <http://doc.scrapy.org/en/latest/topics/items.html>`_ using existing
 `MongoEngine documents <http://docs.mongoengine.org/guide/defining-documents.html>`_.
 
-This utility provides a new class, named ``MongoEngineItem``, that you can use as a
-regular Scrapy item and link it to a MongoEngine document with its
-``mongoengine_document`` attribute. Start using it right away by importing it
-from this package:
-
-.. code-block:: python
-
-    from scrapy_mongoengine_item import MongoEngineItem
-
 Documentation is available on `Read the Docs
 <http://scrapy-mongoengine-item.readthedocs.io/>`_.
 
-Installation
-============
-
-Both ``Python 2.7`` and ``Python 3.5/3.6/3.7`` are
+Prerequisites
+=============
+Both ``Python 2.7`` and ``Python 3.5/3.6`` are
 supported. For ``Python 3`` you need ``Scrapy v1.1`` or above.
 
 Latest tested MongoEngine version is ``MongoEngine 0.17.0``.
 
-Install from ``PyPI`` using:
+Installation
+============
+(1) Install latest stable version from PyPI:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-  pip install scrapy-mongoengine-item
+        pip install scrapy-mongoengine-item
+
+    or latest stable version from GitHub:
+
+    .. code-block:: sh
+
+        pip install https://github.com/barseghyanartur/scrapy-mongoengine-item/archive/stable.tar.gz
+
+    or latest stable version from BitBucket:
+
+    .. code-block:: sh
+
+        pip install https://bitbucket.org/barseghyanartur/scrapy-mongoengine-item/get/stable.tar.gz
 
 Introduction
 ============
-
 ``MongoEngineItem`` is a class of item that gets its fields definition from a
 MongoEngine document, you simply create a ``MongoEngineItem`` and specify what
 MongoEngine document it relates to.
@@ -61,7 +61,6 @@ the item data.
 
 Usage
 =====
-
 ``MongoEngineItem`` works as follows: you create a subclass and define its
 ``mongoengine_document`` attribute to be a valid MongoEngine document. With
 this you will get an item with a field for each MongoEngine document field.
@@ -162,10 +161,8 @@ account when doing a ``MongoEngineItem.save()``.
 
 Development
 ===========
-
 Testing
 -------
-
 To run tests in your working environment type:
 
 .. code-block:: sh
@@ -180,7 +177,6 @@ To test with all supported Python versions type:
 
 Running MongoDB
 ---------------
-
 The easiest way is to run it via Docker:
 
 .. code-block:: sh
@@ -218,7 +214,7 @@ Keep the following hierarchy.
 
 License
 =======
-GPL 2.0/LGPL 2.1
+GPL-2.0-only OR LGPL-2.1-or-later
 
 Support
 =======
