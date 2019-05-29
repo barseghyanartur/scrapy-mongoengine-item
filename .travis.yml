@@ -27,6 +27,6 @@ before_script:
   - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
 
 install:
-  - pip install -r requirementst/test.txt
+  - pip install -r requirements/test.txt
 
 script: travis_retry tox -e $TOX_ENV
