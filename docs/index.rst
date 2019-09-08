@@ -7,6 +7,10 @@ Bringing ``Scrapy`` and ``MongoEngine`` together.
    :target: https://pypi.python.org/pypi/scrapy-mongoengine-item
    :alt: PyPI Version
 
+.. image:: https://img.shields.io/pypi/pyversions/scrapy-mongoengine-item.svg
+    :target: https://pypi.python.org/pypi/scrapy-mongoengine-item/
+    :alt: Supported Python versions
+
 .. image:: https://img.shields.io/travis/barseghyanartur/scrapy-mongoengine-item/master.svg
    :target: http://travis-ci.org/barseghyanartur/scrapy-mongoengine-item
    :alt: Build Status
@@ -14,6 +18,10 @@ Bringing ``Scrapy`` and ``MongoEngine`` together.
 .. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
    :target: https://github.com/barseghyanartur/scrapy-mongoengine-item/#License
    :alt: GPL-2.0-only OR LGPL-2.1-or-later
+
+.. image:: https://coveralls.io/repos/github/barseghyanartur/scrapy-mongoengine-item/badge.svg?branch=master
+    :target: https://coveralls.io/github/barseghyanartur/scrapy-mongoengine-item?branch=master
+    :alt: Coverage
 
 ``scrapy-mongoengine-item`` is an extension that allows you to define `Scrapy items
 <http://doc.scrapy.org/en/latest/topics/items.html>`_ using existing
